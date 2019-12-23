@@ -22,9 +22,11 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         var u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
-        var u2 = new User(null, "Alex Green", "alex@gmail.com", "97777777", "123456");
+        var u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
+        var u3 = new User(null, "Martin Black", "martin@gmail.com", "966667777", "123456");
+        var u4 = new User(null, "John Grey", "john@gmail.com", "933334444", "123456");
 
-        userRepository.saveAll(asList(u1, u2));
+        userRepository.saveAll(asList(u1, u2, u3, u4));
 
     }
 }
