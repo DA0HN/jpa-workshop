@@ -82,4 +82,14 @@ public class Order implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", moment=" + moment +
+                ", orderStatus=" + orderStatus +
+                ", client=" + client +
+                '}';
+    }
 }
