@@ -1,5 +1,7 @@
 package com.bloysenberry.workshop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class User implements Serializable {
     private String fone;
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client") // mapeado pelo atributo client da Entidade Order
     private List<Order> orders = new ArrayList<>();
 

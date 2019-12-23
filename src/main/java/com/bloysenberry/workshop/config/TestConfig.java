@@ -1,13 +1,16 @@
 package com.bloysenberry.workshop.config;
 
+import com.bloysenberry.workshop.entities.Order;
 import com.bloysenberry.workshop.entities.User;
+import com.bloysenberry.workshop.entities.enums.OrderStatus;
+import com.bloysenberry.workshop.repositories.OrderRepository;
 import com.bloysenberry.workshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.util.Arrays;
+import java.time.Instant;
 
 import static java.util.Arrays.asList;
 
@@ -17,7 +20,8 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired  // injeção de dependencia do spring, associa uma instancia de UserRepository
     private UserRepository userRepository;
-
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -26,7 +30,14 @@ public class TestConfig implements CommandLineRunner {
         var u3 = new User(null, "Martin Black", "martin@gmail.com", "966667777", "123456");
         var u4 = new User(null, "John Grey", "john@gmail.com", "933334444", "123456");
 
+        var od1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.DELIVERED,         u1);
+        var od2 = new Order(null, Instant.parse("2019-06-21T19:53:28Z"), OrderStatus.CANCELED,          u1);
+        var od3 = new Order(null, Instant.parse("2019-06-21T21:33:05Z"), OrderStatus.PAID,              u2);
+        var od4 = new Order(null, Instant.parse("2019-06-21T21:43:57Z"), OrderStatus.SHIPPED,           u3);
+        var od5 = new Order(null, Instant.parse("2019-06-22T20:12:17Z"), OrderStatus.WAITING_PAYMENT,   u4);
+
         userRepository.saveAll(asList(u1, u2, u3, u4));
+        orderRepository.saveAll(asList(od1, od2, od3, od4, od5));
 
     }
 }
