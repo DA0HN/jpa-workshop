@@ -1,14 +1,8 @@
 package com.bloysenberry.workshop.config;
 
-import com.bloysenberry.workshop.entities.Category;
-import com.bloysenberry.workshop.entities.Order;
-import com.bloysenberry.workshop.entities.Product;
-import com.bloysenberry.workshop.entities.User;
+import com.bloysenberry.workshop.entities.*;
 import com.bloysenberry.workshop.entities.enums.OrderStatus;
-import com.bloysenberry.workshop.repositories.CategoryRepository;
-import com.bloysenberry.workshop.repositories.OrderRepository;
-import com.bloysenberry.workshop.repositories.ProductRepository;
-import com.bloysenberry.workshop.repositories.UserRepository;
+import com.bloysenberry.workshop.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +24,9 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -57,7 +54,6 @@ public class TestConfig implements CommandLineRunner {
 
         productRepository.saveAll(asList(p1, p2, p3, p4, p5));
 
-
         // instanciando usuarios
         var u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
         var u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
@@ -74,5 +70,14 @@ public class TestConfig implements CommandLineRunner {
         // salvando Order e User no banco
         userRepository.saveAll(asList(u1, u2, u3, u4));
         orderRepository.saveAll(asList(od1, od2, od3, od4, od5));
+
+        // instanciando orderItem
+        var oi1 = new OrderItem(od1, p1, 2, p1.getPrice());
+        var oi2 = new OrderItem(od1, p3, 1, p3.getPrice());
+        var oi3 = new OrderItem(od2, p3, 2, p3.getPrice());
+        var oi4 = new OrderItem(od3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(asList(oi1, oi2, oi3, oi4));
+
     }
 }
