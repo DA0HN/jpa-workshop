@@ -1,14 +1,27 @@
 package com.bloysenberry.workshop.entities;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-public class Product {
+@Entity
+@Table(name = "tb_product")
+public class Product implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String description;
     private Double price;
     private String imgUrl;
+
+    @ManyToMany
+    private Set<Category> categories = new HashSet<>();
 
     public Product(){}
 
@@ -58,6 +71,10 @@ public class Product {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
     @Override
